@@ -5,7 +5,8 @@ angular.module('myApp', [
     'ngRoute',
     'myApp.scoreField',
     'myApp.config',
-    'myApp.version'
+    'myApp.version',
+    'ngToast'
 ]).config(['$locationProvider', '$routeProvider','$httpProvider', function ($locationProvider, $routeProvider,$httpProvider) {
     $locationProvider.hashPrefix('!');
 

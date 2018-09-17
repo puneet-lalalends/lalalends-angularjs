@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-content animated fadeIn">
+<div class="wrapper wrapper-content animated fadeIn" ng-init="initScoreField()">
     <div class="score-main">
         <div class="score-inner-main">
             <div class="score-engine-main pull-left">
@@ -8,6 +8,14 @@
             </div>
             <div class="select-country-main pull-right">
                 <div class="select-contry">
+                    <h3>Select Partner</h3>
+                    <form class="form-adj">
+                        <div class="form-group no-marg">
+                            <select class="form-control no-padd" ng-model="pageData.partner"
+                                    ng-options="partner.partnerName for partner in pageData.partnerList">
+                            </select>
+                        </div>
+                    </form>
                     <h3>Select Contry</h3>
                     <form class="form-adj">
                         <div class="form-group no-marg">
@@ -18,12 +26,13 @@
                         </div>
                     </form>
                     <div class="plus-btn">
-                        <button class="new-btn" type="button"><i class="fa fa-plus-circle fa-3x clr-change"></i></button>
+                        <button class="new-btn" type="button" ng-click="addScoreField()"><i
+                                class="fa fa-plus-circle fa-3x clr-change"></i></button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="score-category" ng-init="initScoreField()">
+        <div class="score-category">
             <form class="table-responsive">
                 <table class="table">
                     <thead>
@@ -31,62 +40,61 @@
                         <th>Score Category</th>
                         <th>Field Name<span style="color:red">*</span></th>
                         <th>Description</th>
+                        <th>JSON Paramerer</th>
                         <th>Apply Score?</th>
                         <th>Max Score</th>
                         <th>For</th>
-                        <th>Partner</th>
                         <th></th>
                         <th></th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
+                        <tr ng-repeat="scoreField in pageData.scoreFieldList">
+                            <td width="15%">
+                                <select class="form-control no-padd" ng-model="scoreField.category.value" ng-disabled="scoreField.category.readOnly">
+                                    <option value="">-- Choose Category --</option>
+                                    <option ng-repeat="category in pageData.categoryList">{{category}}</option>
+                                </select>
+                            </td>
+                            <td width="15%">
+                                <input class="form-control" type="text" placeholder="" ng-model="scoreField.fieldName.value" ng-disabled="scoreField.fieldName.readOnly">
+                            </td>
+                            <td width="15%">
+                                <input class="form-control" type="text" placeholder="" ng-model="scoreField.fieldDesc.value" ng-disabled="scoreField.fieldDesc.readOnly">
+                            </td>
+                            <td width="10%">
+                                <input class="form-control" type="text" placeholder="" ng-model="scoreField.jsonParam.value" ng-disabled="scoreField.jsonParam.readOnly">
+                            </td>
+                            <td width="5%">
+                                <input class="form-check-input width" type="checkbox" ng-model="scoreField.applyScore.value" ng-disabled="scoreField.applyScore.readOnly" id="defaultCheck1">
+                            </td>
+                            <td width="5%">
+                                <input class="form-control" type="text" placeholder="" ng-model="scoreField.maxScore.value" ng-disabled="scoreField.maxScore.readOnly">
+                            </td>
+                            <td width="15%">
+                                <select class="form-control no-padd" ng-model="scoreField.borrowerType.value" ng-disabled="scoreField.borrowerType.readOnly">
+                                    <option value="">-- Borrower Type --</option>
+                                    <option ng-repeat="borrowerType in pageData.borrowerTypeList">{{borrowerType}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary bg-clr" ng-if="!scoreField.scoreId" ng-click="saveScoreField($index )">Save</button>
+                                <button type="button" class="btn btn-primary bg-clr" ng-if="scoreField.scoreId && (scoreField|checkEditMode)" ng-click="editScoreField($index )">Edit</button>
+                                <button type="button" class="btn btn-primary bg-clr" ng-if="scoreField.scoreId && !(scoreField|checkEditMode)" ng-click="updateScoreField($index )">update</button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary bg-clr" ng-if="scoreField.scoreId" ng-click="deleteScoreField($index)">Delete</button>
+                            </td>
+                            <td>
+                                <button ng-if="scoreField.scoreId" type="button" class="btn btn-primary bg-clr" role="button" aria-expanded="false"
+                                        aria-controls="collapseExample">Rules
+                                </button>
+                            </td>
 
-                    <tr>
-                        <td width="15%">
-                            <select class="form-control no-padd" ng-model="pageData.category">
-                                <option value="">-- Choose Category --</option>
-                                <option ng-repeat="category in pageData.categoryList">{{category}}</option>
-                            </select>
-                        </td>
-                        <td width="15%">
-                            <input class="form-control" type="text" placeholder="" ng-model="pageData.fieldName">
-                        </td>
-                        <td width="15%">
-                            <input class="form-control" type="text" placeholder="" ng-model="pageData.fieldDesc">
-                        </td>
-                        <td width="10%">
-                            <input class="form-check-input width" type="checkbox" ng-model="pageData.applyScore" id="defaultCheck1">
-                        </td>
-                        <td width="5%">
-                            <input class="form-control" type="text" placeholder="" ng-model="pageData.maxScore">
-                        </td>
-                        <td width="15%">
-                            <select class="form-control no-padd" ng-model="pageData.borrowerType">
-                                <option value="">-- Borrower Type --</option>
-                                <option ng-repeat="borrowerType in pageData.borrowerTypeList">{{borrowerType}}</option>
-                            </select>
-                        </td>
-                        <td width="10%">
-                            <select class="form-control no-padd" ng-model="pageData.partner" ng-options="partner.partnerName for partner in pageData.partnerList">
-                            </select>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary bg-clr">Edit</button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary bg-clr">Delete</button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-primary bg-clr" role="button" aria-expanded="false" aria-controls="collapseExample">Rules</button>
-                            <!--<button type="button" class="btn btn-primary bg-clr" data-toggle="collapse"  role="button" aria-expanded="false" aria-controls="collapseExample">Rules</button>-->
-                        </td>
-                    </tr>
-
-                    <!--<tr>
-                        <td colspan="9">
-                            <div class="modal-table" id="collapseExample">
-                                <form class="table-responsive bg">
+                            <!--<td colspan="9">
+                                <div class="modal-table" id="collapseExample">
+                                    &lt;!&ndash;<form class="table-responsive bg">&ndash;&gt;
                                     <table class="table new-bg-clr">
                                         <thead>
                                         <tr>
@@ -131,130 +139,26 @@
                                                 <input class="form-control" type="text" placeholder="">
                                             </td>
                                             <td>
-                                                <input class="form-check-input width" type="checkbox" value="" id="defaultCheck1">
+                                                <input class="form-check-input width" type="checkbox" value=""
+                                                       id="defaultCheck1">
                                             </td>
                                             <td>
-                                                <input class="form-check-input width" type="checkbox" value="" id="defaultCheck1">
+                                                <input class="form-check-input width" type="checkbox" value=""
+                                                       id="defaultCheck1">
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-primary bg-clr">Edit</button>
                                                 <button type="button" class="btn btn-primary bg-clr">Delete</button>
                                             </td>
-                                            &lt;!&ndash; <td>
-
-                                            </td> &ndash;&gt;
-                                        </tr>
-                                        <tr>
-                                        </tr>
-                                        <tr>
-                                        </tr>
                                         </tbody>
                                     </table>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>-->
+                                    &lt;!&ndash;</form>&ndash;&gt;
+                                </div>
+                            </td>-->
+
+                        </tr>
 
 
-                    <!--<tr>
-                        <td>
-                            <select id="inputState" class="form-control no-padd">
-                                <option selected>Application Details</option>
-                                <option>Application Details</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" placeholder="">
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" placeholder="">
-                        </td>
-                        <td>
-                            <input class="form-check-input width" type="checkbox" value="" id="defaultCheck1">
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" placeholder="">
-                        </td>
-                        <td>
-                            <select id="inputState" class="form-control no-padd">
-                                <option selected>Individual</option>
-                                <option>Business</option>
-                                <option>All</option>
-                            </select>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select id="inputState" class="form-control no-padd">
-                                <option selected>Occupation Details</option>
-                                <option>Occupation Details</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" placeholder="">
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" placeholder="">
-                        </td>
-                        <td>
-                            <input class="form-check-input width" type="checkbox" value="" id="defaultCheck1">
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" placeholder="">
-                        </td>
-                        <td>
-                            <select id="inputState" class="form-control no-padd">
-                                <option selected>Individual</option>
-                                <option>Business</option>
-                                <option>All</option>
-                            </select>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <select id="inputState" class="form-control no-padd">
-                                <option selected>Co-Applicant</option>
-                                <option>Co-Applicant</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" placeholder="">
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" placeholder="">
-                        </td>
-                        <td>
-                            <input class="form-check-input width" type="checkbox" value="" id="defaultCheck1">
-                        </td>
-                        <td>
-                            <input class="form-control" type="text" placeholder="">
-                        </td>
-                        <td>
-                            <select id="inputState" class="form-control no-padd">
-                                <option selected>Individual</option>
-                                <option>Business</option>
-                                <option>All</option>
-                            </select>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>-->
                     </tbody>
                 </table>
             </form>

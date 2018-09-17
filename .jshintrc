@@ -21,6 +21,7 @@
     "element": false,
     "by": false,
 
-    "console":true
+    "console":true,
+    "$":true
   }
 }
