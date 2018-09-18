@@ -26,142 +26,190 @@
                         </div>
                     </form>
                     <div class="plus-btn">
-                        <button class="new-btn" type="button" ng-click="addScoreField()"><i
+                        <button ng-click="addScoreField()" class="new-btn" type="button"><i
                                 class="fa fa-plus-circle fa-3x clr-change"></i></button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="score-category">
-            <form class="table-responsive">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Score Category</th>
-                        <th>Field Name<span style="color:red">*</span></th>
-                        <th>Description</th>
-                        <th>JSON Paramerer</th>
-                        <th>Apply Score?</th>
-                        <th>Max Score</th>
-                        <th>For</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="scoreField in pageData.scoreFieldList">
-                            <td width="15%">
-                                <select class="form-control no-padd" ng-model="scoreField.category.value" ng-disabled="scoreField.category.readOnly">
+            <div class="row no-margin">
+                <div class="col-md-12 padd-none">
+                    <div class="col-md-9 score-inner">
+                        <div class="col-md-2">
+                            <h3>Score Category</h3>
+                        </div>
+                        <div class="col-md-2">
+                            <h3>Field Name<span style="color:red">*</span></h3>
+                        </div>
+                        <div class="col-md-2">
+                            <h3>Description</h3>
+                        </div>
+                        <div class="col-md-2">
+                            <h3>JSON Paramerer</h3>
+                        </div>
+                        <div class="col-md-1">
+                            <h3>Apply Score?</h3>
+                        </div>
+                        <div class="col-md-1">
+                            <h3>Max Score</h3>
+                        </div>
+                        <div class="col-md-2">
+                            <h3>For</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" ng-repeat="scoreField in pageData.scoreFieldList" ng-init="scoreFieldIndex = $index">
+                        <div class="col-md-9 form-fields">
+                            <div class="col-md-2 form-group padd-left">
+
+                                <select class="form-control no-padd" ng-model="scoreField.category.value"
+                                        ng-disabled="scoreField.category.readOnly">
                                     <option value="">-- Choose Category --</option>
                                     <option ng-repeat="category in pageData.categoryList">{{category}}</option>
                                 </select>
-                            </td>
-                            <td width="15%">
-                                <input class="form-control" type="text" placeholder="" ng-model="scoreField.fieldName.value" ng-disabled="scoreField.fieldName.readOnly">
-                            </td>
-                            <td width="15%">
-                                <input class="form-control" type="text" placeholder="" ng-model="scoreField.fieldDesc.value" ng-disabled="scoreField.fieldDesc.readOnly">
-                            </td>
-                            <td width="10%">
-                                <input class="form-control" type="text" placeholder="" ng-model="scoreField.jsonParam.value" ng-disabled="scoreField.jsonParam.readOnly">
-                            </td>
-                            <td width="5%">
-                                <input class="form-check-input width" type="checkbox" ng-model="scoreField.applyScore.value" ng-disabled="scoreField.applyScore.readOnly" id="defaultCheck1">
-                            </td>
-                            <td width="5%">
-                                <input class="form-control" type="text" placeholder="" ng-model="scoreField.maxScore.value" ng-disabled="scoreField.maxScore.readOnly">
-                            </td>
-                            <td width="15%">
-                                <select class="form-control no-padd" ng-model="scoreField.borrowerType.value" ng-disabled="scoreField.borrowerType.readOnly">
+                            </div>
+                            <div class="col-md-2 form-group padd-left">
+                                <input class="form-control" type="text" placeholder=""
+                                       ng-model="scoreField.fieldName.value"
+                                       ng-disabled="scoreField.fieldName.readOnly">
+                            </div>
+                            <div class="col-md-2 form-group padd-left">
+                                <input class="form-control" type="text" placeholder=""
+                                       ng-model="scoreField.fieldDesc.value"
+                                       ng-disabled="scoreField.fieldDesc.readOnly">
+                            </div>
+                            <div class="col-md-2 form-group padd-left">
+                                <input class="form-control" type="text" placeholder=""
+                                       ng-model="scoreField.jsonParam.value"
+                                       ng-disabled="scoreField.jsonParam.readOnly">
+                            </div>
+                            <div class="col-md-1 form-group padd-left">
+                                <input class="form-check-input width" type="checkbox"
+                                       ng-model="scoreField.applyScore.value"
+                                       ng-disabled="scoreField.applyScore.readOnly" id="defaultCheck1">
+                            </div>
+                            <div class="col-md-1 form-group padd-left">
+                                <input class="form-control" type="text" placeholder=""
+                                       ng-model="scoreField.maxScore.value" ng-disabled="scoreField.maxScore.readOnly">
+                            </div>
+                            <div class="col-md-2 form-group padd-left">
+                                <select class="form-control no-padd" ng-model="scoreField.borrowerType.value"
+                                        ng-disabled="scoreField.borrowerType.readOnly">
                                     <option value="">-- Borrower Type --</option>
                                     <option ng-repeat="borrowerType in pageData.borrowerTypeList">{{borrowerType}}</option>
                                 </select>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary bg-clr" ng-if="!scoreField.scoreId" ng-click="saveScoreField($index )">Save</button>
-                                <button type="button" class="btn btn-primary bg-clr" ng-if="scoreField.scoreId && (scoreField|checkEditMode)" ng-click="editScoreField($index )">Edit</button>
-                                <button type="button" class="btn btn-primary bg-clr" ng-if="scoreField.scoreId && !(scoreField|checkEditMode)" ng-click="updateScoreField($index )">update</button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary bg-clr" ng-if="scoreField.scoreId" ng-click="deleteScoreField($index)">Delete</button>
-                            </td>
-                            <td>
-                                <button ng-if="scoreField.scoreId" type="button" class="btn btn-primary bg-clr" role="button" aria-expanded="false"
-                                        aria-controls="collapseExample">Rules
-                                </button>
-                            </td>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-primary bg-clr" ng-if="!scoreField.scoreId"
+                                    ng-click="saveScoreField(scoreFieldIndex )">Save
+                            </button>
+                            <button type="button" class="btn btn-primary bg-clr"
+                                    ng-if="scoreField.scoreId && (scoreField|checkEditMode)"
+                                    ng-click="editScoreField(scoreFieldIndex )">Edit
+                            </button>
+                            <button type="button" class="btn btn-primary bg-clr"
+                                    ng-if="scoreField.scoreId && !(scoreField|checkEditMode)"
+                                    ng-click="updateScoreField(scoreFieldIndex )">update
+                            </button>
+                            <button type="button" class="btn btn-primary bg-clr" ng-if="scoreField.scoreId"
+                                    ng-click="deleteScoreField(scoreFieldIndex)">Delete
+                            </button>
+                            <button ng-if="scoreField.scoreId" type="button" class="btn btn-primary bg-clr" data-toggle="collapse"
+                                    href="#collapseExample" role="button" aria-expanded="false"
+                                    aria-controls="collapseExample"
+                                    ng-click="scoreField.showRules=!scoreField.showRules">Rules
+                            </button>
+                        </div>
+                        <div class="col-md-12 padd-left-bott" ng-show="scoreField.showRules">
+                            <div class="modal-table" id="collapseExample">
+                                <div class="complete-div">
+                                    <div class="plus2-btn pull-right">
+                                        <div class="col-md-2 marg">
+                                          <span id="fileselector">
+                                             <label class="btn btn-default up-bg-clr" for="upload-file-selector">
+                                             <input id="upload-file-selector" type="file">
+                                             <i class="fa_icon icon-upload-alt margin-correction"></i>Upload CSV File
+                                             </label>
+                                           </span>
+                                        </div>
+                                        <button class="new-btn1" type="button" ng-click="addScoreRules(scoreFieldIndex)"><i
+                                                class="fa fa-plus-circle fa-2x clr-change1"></i></button>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-2 form-heading">
+                                            <h2>Rule Function</h2>
+                                        </div>
+                                        <div class="col-md-2 form-heading">
+                                            <h2>Valid Data Value/Range</h2>
+                                        </div>
+                                        <div class="col-md-2 form-heading">
+                                            <h2>Weightage</h2>
+                                        </div>
+                                        <div class="col-md-2 form-heading">
+                                            <h2>Priority</h2>
+                                        </div>
+                                        <div class="col-md-1 form-heading">
+                                            <h2>Ignore Text Case</h2>
+                                        </div>
+                                        <div class="col-md-1 form-heading">
+                                            <h2>Remove Spl Char & Spaces</h2>
+                                        </div>
 
-                            <!--<td colspan="9">
-                                <div class="modal-table" id="collapseExample">
-                                    &lt;!&ndash;<form class="table-responsive bg">&ndash;&gt;
-                                    <table class="table new-bg-clr">
-                                        <thead>
-                                        <tr>
-                                            <th>Rule Function</th>
-                                            <th width="20%">Valid Data Value/Range</th>
-                                            <th width="15%">Weightage</th>
-                                            <th>Ignore Text Case</th>
-                                            <th>Remove Spl Char & Spaces</th>
-                                            <th>
-                                    <span id="fileselector">
-                                        <label class="btn btn-default up-bg-clr" for="upload-file-selector">
-                                            <input id="upload-file-selector" type="file">
-                                            <i class="fa_icon icon-upload-alt margin-correction"></i>Upload CSV File
-                                        </label>
-                                    </span>
-                                                &lt;!&ndash; <button type="button" class="btn btn-primary up-bg-clr">Upload CSV File</button> &ndash;&gt;
-                                            </th>
-                                            &lt;!&ndash; <th></th> &ndash;&gt;
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <select id="inputState" class="form-control no-padd">
-                                                    <option selected>Exact Match</option>
-                                                    <option>Contains</option>
-                                                    <option>In-list</option>
-                                                    <option>In-Between (Inclusive)</option>
-                                                    <option>In-Between (Exclusive)</option>
-                                                    <option>Pattern Match</option>
-                                                    <option>Less Than</option>
-                                                    <option>Less Than Equal To</option>
-                                                    <option>Greater Than</option>
-                                                    <option>Greater Than Equal To</option>
-                                                </select>
-                                            </td>
-                                            <td class="icon-field">
-                                                <input class="form-control" type="text" placeholder="">
-                                                <i class="fa fa-pencil-square edit-icon"></i>
-                                            </td>
-                                            <td>
-                                                <input class="form-control" type="text" placeholder="">
-                                            </td>
-                                            <td>
-                                                <input class="form-check-input width" type="checkbox" value=""
-                                                       id="defaultCheck1">
-                                            </td>
-                                            <td>
-                                                <input class="form-check-input width" type="checkbox" value=""
-                                                       id="defaultCheck1">
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary bg-clr">Edit</button>
-                                                <button type="button" class="btn btn-primary bg-clr">Delete</button>
-                                            </td>
-                                        </tbody>
-                                    </table>
-                                    &lt;!&ndash;</form>&ndash;&gt;
+                                    </div>
+
+                                    <div class="col-md-12" ng-repeat="scoreRule in scoreField.scoreRulesSet" ng-init="ruleIndex = $index">
+                                        <div class="col-md-2 form-group">
+                                            <select class="form-control no-padd" ng-model="scoreRule.srLogicalOperatorName.value" ng-disabled="scoreRule.srLogicalOperatorName.readOnly">
+                                                <option value="">-- Rule Operation --</option>
+                                                <option ng-repeat="srLogicalOperator in pageData.srLogicalOperatorList">{{srLogicalOperator}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2 form-group">
+                                            <input class="form-control edit-width" type="text" placeholder=""   ng-model="scoreRule.srRuleValue.value" ng-disabled="scoreRule.srRuleValue.readOnly">
+                                            <!--<textarea class="form-control edit-width" rows="4" cols="50"></textarea>-->
+                                            <i class="fa fa-pencil-square edit-icon"></i>
+                                        </div>
+                                        <div class="col-md-2 form-group">
+                                            <input class="form-control" type="text" placeholder="" ng-model="scoreRule.srWeightage.value" ng-disabled="scoreRule.srWeightage.readOnly">
+                                        </div>
+                                        <div class="col-md-2 form-group">
+                                            <input class="form-control" type="text" placeholder="" ng-model="scoreRule.scorePriority.value" ng-disabled="scoreRule.scorePriority.readOnly">
+                                        </div>
+                                        <div class="col-md-1 form-group">
+                                            <input ng-model="scoreRule.srIgnoreCase.value" class="form-check-input width" type="checkbox" value=""
+                                                   id="defaultCheck1" ng-disabled="scoreRule.srIgnoreCase.readOnly">
+                                        </div>
+                                        <div class="col-md-1 form-group">
+                                            <input ng-model="scoreRule.srRemoveExtraCase.value" class="form-check-input width" type="checkbox" value=""
+                                                   id="defaultCheck1" ng-disabled="scoreRule.srRemoveExtraCase.readOnly">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-primary bg-clr" ng-if="!scoreRule.scoreRuleId" ng-click="updateScoreField(scoreFieldIndex,ruleIndex)">Save</button>
+                                            <button type="button" class="btn btn-primary bg-clr" ng-click="editScoreRules(scoreFieldIndex,ruleIndex)" ng-if="scoreRule.scoreRuleId && (scoreRule|checkEditModeForRules)">Edit</button>
+                                            <button type="button" class="btn btn-primary bg-clr" ng-click="updateScoreField(scoreFieldIndex,ruleIndex)" ng-if="scoreRule.scoreRuleId && !(scoreRule|checkEditModeForRules)">Update</button>
+                                            <button type="button" class="btn btn-primary bg-clr" ng-if="scoreRule.scoreRuleId" ng-click="deleteScoreRules(scoreFieldIndex,ruleIndex)">Delete</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </td>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                        </tr>
+            <ul class="pagination pull-right">
+                <li><a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+            </ul>
 
-
-                    </tbody>
-                </table>
-            </form>
         </div>
     </div>
 </div>
+

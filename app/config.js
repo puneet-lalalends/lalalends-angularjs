@@ -8,7 +8,8 @@ var config_data = {
         'APP_VERSION': '0.1',
         'LALALENDS_URL': 'http://localhost:8080/',
         'categoryList':['Loan Requirement','Application Details','Occupation Details','Co-Applicant'],
-        'borrowerTypeList':['Individual','Business','All']
+        'borrowerTypeList':['Individual','Business','All'],
+        'srLogicalOperator':['Exact Match','Contains','In-list','In-Between (Inclusive)','In-Between (Exclusive)','Pattern Match','Less Than','Less Than Equal To','Greater Than','Greater Than Equal To']
     }
 };
 

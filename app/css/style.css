@@ -8789,6 +8789,7 @@ body.md-skin {
 .width{
     margin: auto !important;
     display: block;
+    margin-top: 9px !important;
 }
 .no-padd{
     padding: 6px 4px;
@@ -8803,7 +8804,56 @@ body.md-skin {
 .score-category .table > tbody > tr > td{
     border: none !important;
 }
-
+.score-inner{
+    overflow: hidden;
+    padding: 0;
+}
+.form-fields{
+    overflow: hidden;
+    padding: 0;
+}
+.form-heading h2{
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+.edit-width{
+    width: 82%;
+    float: left;
+}
+.padd-left{
+    padding-left: 0 !important;
+}
+.padd-left-bott{
+    padding-left: 0;
+    padding-bottom: 10px;
+}
+.marg{
+    margin-top: 2px;
+}
+.complete-div{
+    padding-top: 5px;
+}
+.plus2-btn{
+    width: 100%;
+    padding-bottom: 5px;
+}
+.new-btn1{
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 100%;
+    float: right;
+    margin-right: 20px;
+}
+.clr-change1{
+    color: #660000;
+    position: relative;
+    bottom: 4px;
+}
 /*MODAL COLLAPSE CSS START*/
 .new-width{
     width: 930px;
@@ -8887,9 +8937,17 @@ body.md-skin {
 }
 .edit-icon{
     background: #fff;
-    min-width: 30px;
+    min-width: 31px;
     line-height: 34px;
     text-align: center;
+    float: right;
+}
+.no-margin{
+    margin-right: 0;
+    margin-left: 0;
+}
+.padd-none{
+    padding: 0;
 }
 /*.margin-correction {
     margin-right: 10px;
@@ -9098,6 +9156,10 @@ body.md-skin {
 }
 .score-category{
     border: 1px solid;
+    width: 99%;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
 }
 .new-border-bottom{
     border-bottom: 1px solid;
